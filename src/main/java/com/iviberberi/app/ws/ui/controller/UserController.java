@@ -5,6 +5,7 @@ import com.iviberberi.app.ws.service.UserService;
 import com.iviberberi.app.ws.service.impl.AddressService;
 import com.iviberberi.app.ws.shared.dto.AddressDto;
 import com.iviberberi.app.ws.shared.dto.UserDto;
+import com.iviberberi.app.ws.ui.model.request.PasswordResetRequestModel;
 import com.iviberberi.app.ws.ui.model.request.UserDetailsRequestModel;
 import com.iviberberi.app.ws.ui.model.response.*;
 import org.modelmapper.ModelMapper;
@@ -153,7 +154,7 @@ public class UserController {
         return new EntityModel<>(addressesRestModel);
     }
 
-    // http://localhost:8080/ mobile-app-ws/users/email-verification?token=sadasd
+    // http://localhost:8081/ mobile-app-ws/users/email-verification?token=sadasd
     @GetMapping(path = "/email-verification", produces = {MediaType.APPLICATION_JSON_VALUE,
             MediaType.APPLICATION_XML_VALUE})
     public OperationStatusModel verifyEmailToken(@RequestParam(value = "token") String token) {
@@ -167,6 +168,24 @@ public class UserController {
             returnValue.setOperationResult(RequestOperationStatus.SUCCESS.name());
         } else {
             returnValue.setOperationResult(RequestOperationStatus.ERROR.name());
+        }
+
+        return returnValue;
+    }
+
+    // http://localhost:8081/ mobile-app-ws/users/password-reset-request
+    @PostMapping(path = "/password-reset-request", consumes = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE},
+            produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    public OperationStatusModel requestReset(@RequestBody PasswordResetRequestModel passwordResetRequestModel) {
+        OperationStatusModel returnValue = new OperationStatusModel();
+
+        boolean operationResult = userService.requestPasswordReset(passwordResetRequestModel.getEmail());
+
+        returnValue.setOperationName(RequestOperationName.REQUEST_PASSWORD_RESET.name());
+        returnValue.setOperationResult(RequestOperationStatus.ERROR.name());
+
+        if (operationResult) {
+            returnValue.setOperationResult(RequestOperationStatus.SUCCESS.name());
         }
 
         return returnValue;
