@@ -153,7 +153,7 @@ public class UserServiceImpl implements UserService {
         boolean returnValue = false;
 
         //Find user by token
-        UserEntity userEntity = userRepository.findUserByEmailVerificationStatus(token);
+        UserEntity userEntity = userRepository.findUserByEmailVerificationToken(token);
 
         if (userEntity != null) {
             boolean hasTokenExpired = Utils.hasTokenExpired(token);
