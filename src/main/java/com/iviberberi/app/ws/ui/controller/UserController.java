@@ -5,6 +5,7 @@ import com.iviberberi.app.ws.service.UserService;
 import com.iviberberi.app.ws.service.impl.AddressService;
 import com.iviberberi.app.ws.shared.dto.AddressDto;
 import com.iviberberi.app.ws.shared.dto.UserDto;
+import com.iviberberi.app.ws.ui.model.request.PasswordResetModel;
 import com.iviberberi.app.ws.ui.model.request.PasswordResetRequestModel;
 import com.iviberberi.app.ws.ui.model.request.UserDetailsRequestModel;
 import com.iviberberi.app.ws.ui.model.response.*;
@@ -182,6 +183,23 @@ public class UserController {
         boolean operationResult = userService.requestPasswordReset(passwordResetRequestModel.getEmail());
 
         returnValue.setOperationName(RequestOperationName.REQUEST_PASSWORD_RESET.name());
+        returnValue.setOperationResult(RequestOperationStatus.ERROR.name());
+
+        if (operationResult) {
+            returnValue.setOperationResult(RequestOperationStatus.SUCCESS.name());
+        }
+
+        return returnValue;
+    }
+
+    // http://localhost:8081/mobile-app-ws/users/password-reset
+    @PostMapping(path = "/password-reset", consumes = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+    public OperationStatusModel resetPassword(@RequestBody PasswordResetModel passwordResetModel) {
+        OperationStatusModel returnValue = new OperationStatusModel();
+
+        boolean operationResult = userService.resetPassword(passwordResetModel.getToken(), passwordResetModel.getPassword());
+
+        returnValue.setOperationName(RequestOperationName.PASSWORD_RESET.name());
         returnValue.setOperationResult(RequestOperationStatus.ERROR.name());
 
         if (operationResult) {

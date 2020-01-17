@@ -77,10 +77,10 @@ public class AmazonSES {
                 .withRegion(Regions.EU_CENTRAL_1).build();
 
         String htmlBodyWithToken = PASSWORD_RESET_HTMLBODY.replace("$tokenValue", token);
-        htmlBodyWithToken = PASSWORD_RESET_HTMLBODY.replace("$firstName", firstName);
+        htmlBodyWithToken = htmlBodyWithToken.replace("$firstName", firstName);
 
         String textBodyWithToken = PASSWORD_RESET_TEXTBODY.replace("$tokenValue", token);
-        textBodyWithToken = PASSWORD_RESET_TEXTBODY.replace("$firstName", firstName);
+        textBodyWithToken = textBodyWithToken.replace("$firstName", firstName);
 
         SendEmailRequest request = new SendEmailRequest()
                 .withDestination(new Destination().withToAddresses(email))
