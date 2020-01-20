@@ -4,6 +4,7 @@ import com.iviberberi.app.ws.io.entity.AddressEntity;
 import com.iviberberi.app.ws.io.entity.UserEntity;
 import com.iviberberi.app.ws.io.repositories.AddressRepository;
 import com.iviberberi.app.ws.io.repositories.UserRepository;
+import com.iviberberi.app.ws.service.AddressService;
 import com.iviberberi.app.ws.shared.dto.AddressDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

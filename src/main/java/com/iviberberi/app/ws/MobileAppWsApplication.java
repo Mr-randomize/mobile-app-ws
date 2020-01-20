@@ -1,6 +1,7 @@
 package com.iviberberi.app.ws;
 
 import com.iviberberi.app.ws.security.AppProperties;
+import com.iviberberi.app.ws.shared.AmazonSES;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -23,6 +24,11 @@ public class MobileAppWsApplication extends SpringBootServletInitializer {
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public AmazonSES getAmazonSES() {
+        return new AmazonSES();
     }
 
     @Bean

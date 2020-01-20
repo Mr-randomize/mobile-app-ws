@@ -1,8 +1,8 @@
 package com.iviberberi.app.ws.ui.controller;
 
 import com.iviberberi.app.ws.exceptions.UserServiceException;
+import com.iviberberi.app.ws.service.AddressService;
 import com.iviberberi.app.ws.service.UserService;
-import com.iviberberi.app.ws.service.impl.AddressService;
 import com.iviberberi.app.ws.shared.dto.AddressDto;
 import com.iviberberi.app.ws.shared.dto.UserDto;
 import com.iviberberi.app.ws.ui.model.request.PasswordResetModel;

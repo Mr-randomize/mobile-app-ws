@@ -1,4 +1,4 @@
-package com.iviberberi.app.ws.service.impl;
+package com.iviberberi.app.ws.service;
 
 import com.iviberberi.app.ws.shared.dto.AddressDto;
 
