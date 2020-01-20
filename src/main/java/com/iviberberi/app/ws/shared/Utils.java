@@ -2,6 +2,7 @@ package com.iviberberi.app.ws.shared;
 
 import com.iviberberi.app.ws.security.SecurityConstants;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.stereotype.Component;
@@ -37,14 +38,23 @@ public class Utils {
     }
 
     public static boolean hasTokenExpired(String token) {
-        Claims claims = Jwts.parser()
-                .setSigningKey(SecurityConstants.getTokenSecret())
-                .parseClaimsJws(token).getBody();
 
-        Date tokenExpirationDate = claims.getExpiration();
-        Date todayDate = new Date();
+        boolean returnValue = true;
 
-        return tokenExpirationDate.before(todayDate);
+        try {
+            Claims claims = Jwts.parser()
+                    .setSigningKey(SecurityConstants.getTokenSecret())
+                    .parseClaimsJws(token).getBody();
+
+            Date tokenExpirationDate = claims.getExpiration();
+            Date todayDate = new Date();
+
+            returnValue = tokenExpirationDate.before(todayDate);
+        } catch (ExpiredJwtException ex) {
+            returnValue = false;
+        }
+
+        return returnValue;
     }
 
     public static String generateEmailVerificationToken(String userId) {
@@ -59,7 +69,7 @@ public class Utils {
     public static String generatePasswordResetToken(String userId) {
         String token = Jwts.builder()
                 .setSubject(userId)
-                .setExpiration(new Date(System.currentTimeMillis() + SecurityConstants.PASSWORD_RESET_EXPIRATION_TIME ))
+                .setExpiration(new Date(System.currentTimeMillis() + SecurityConstants.PASSWORD_RESET_EXPIRATION_TIME))
                 .signWith(SignatureAlgorithm.HS512, SecurityConstants.getTokenSecret())
                 .compact();
         return token;
