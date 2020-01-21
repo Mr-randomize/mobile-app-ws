@@ -43,7 +43,7 @@ class UtilsTest {
 
     @Test
     final void testHasTokenExpired() {
-        String expiredToken = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0MUB0ZXN0LmNvbSIsImV4cCI6MTUzMjc3Nzc3NX0.cdudUo3pwZLN9UiTuXiT7itpaQs6BgUPU0yWbNcz56-l1Z0476N3H_qSEHXQI5lUfaK2ePtTWJfROmf0213UJA";
+        String expiredToken = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJRREZuTnhTYnhNSnBFSWdrQVJLa05TOHVqaWl3WVYiLCJleHAiOjE1ODA0ODc4MzJ9.jO12ntH4a2ag4SWxdW7_NXaqIsW95wMVrk5v-LkAra3WuBIQRQzuE7C5V6e0XdhsPDOntdzd743XLibmuXfkUQ";
         boolean hasTokenExpired = Utils.hasTokenExpired(expiredToken);
 
         assertTrue(hasTokenExpired);
