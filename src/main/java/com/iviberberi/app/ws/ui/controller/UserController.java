@@ -158,6 +158,7 @@ public class UserController {
     // http://localhost:8081/ mobile-app-ws/users/email-verification?token=sadasd
     @GetMapping(path = "/email-verification", produces = {MediaType.APPLICATION_JSON_VALUE,
             MediaType.APPLICATION_XML_VALUE})
+    @CrossOrigin(origins = "* ")
     public OperationStatusModel verifyEmailToken(@RequestParam(value = "token") String token) {
         OperationStatusModel returnValue = new OperationStatusModel();
 
