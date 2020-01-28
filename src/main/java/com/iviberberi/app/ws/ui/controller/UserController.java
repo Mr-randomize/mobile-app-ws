@@ -9,6 +9,9 @@ import com.iviberberi.app.ws.ui.model.request.PasswordResetModel;
 import com.iviberberi.app.ws.ui.model.request.PasswordResetRequestModel;
 import com.iviberberi.app.ws.ui.model.request.UserDetailsRequestModel;
 import com.iviberberi.app.ws.ui.model.response.*;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.BeanUtils;
@@ -35,6 +38,7 @@ public class UserController {
     @Autowired
     AddressService addressService;
 
+    @ApiOperation(value = "The Get User Details Web Service Endpoint")
     @GetMapping(path = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public UserRest getUser(@PathVariable String id) {
 
@@ -94,6 +98,9 @@ public class UserController {
         return returnValue;
     }
 
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "authorization", value = "${userController.authorizationHeader.description}", paramType = "header")
+    })
     @GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public List<UserRest> getUsers(@RequestParam(value = "page", defaultValue = "0") int page,
                                    @RequestParam(value = "limit", defaultValue = "25") int limit) {
